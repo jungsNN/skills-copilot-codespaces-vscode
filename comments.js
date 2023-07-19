@@ -1,31 +1,17 @@
 // Create web server
-// In the root of the project, create a file called server.js.
-
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(methodOverride());
-
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
-// Run the server
-// In the root of the project, run the following command:
-
-// $ node server.js
-
-// You should see the following output:
-
-// Example app listening on port 3000!
-
-// Now, open a browser and navigate to http://localhost:3000. You should see the following output:
-
-// Hello World!
+var http = require("http");
+var port = 8080;
+http.createServer(function (request, response) {
+    response.writeHead(200, { "Content-Type": "text/html" });
+    var member = skillsMember();
+    response.write("<h1>" + member.name + "</h1>");
+    response.write("<p>Age: " + member.age + "</p>");
+    response.write("<ul>");
+    for (var i = 0; i < member.skills.length; i++) {
+        response.write("<li>" + member.skills[i] + "</li>");
+    }
+    response.write("</ul>");
+    response.end();
+}).listen(port);
+console.log("Server listening on: http://localhost:%s", port);
+// Run the code and test it in the browser.
